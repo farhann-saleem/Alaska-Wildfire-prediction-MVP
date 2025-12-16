@@ -1,0 +1,23 @@
+# Prevent committing large files
+*.tif
+*.tiff
+data/raw/*
+data/processed/*
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+*.log
+.DS_Store
+
+# Virtual Environment
+venv/
+.ipynb_checkpoints/
+
+# Data and Logs
+data/
+outputs/
+*.log

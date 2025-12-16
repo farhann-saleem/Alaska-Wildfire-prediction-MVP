@@ -1,0 +1,63 @@
+FIXES TO ADD IN YOUR JUPYTER NOTEBOOK FOR COLAB TPU:
+
+=== FIX #1: REMOVE CLASS WEIGHT SCALING ===
+Replace this (line ~211 in train_model.py):
+    weight_1 = weight_1 * 0.3
+    
+With this:
+    # Do NOT scale down the burn weight - we NEED it to counter imbalance!
+    pass
+
+=== FIX #2: USE BETTER LOSS FUNCTION ===
+Replace this (line ~220):
+    loss='sparse_categorical_crossentropy'
+    
+With this:
+    loss='binary_crossentropy'  # Better for imbalanced binary classification
+    
+OR keep sparse but use focal loss for better handling:
+    loss=tfa.losses.SigmoidFocalCrossEntropy()
+
+=== FIX #3: CONVERT LABELS TO ONE-HOT IF USING BINARY_CROSSENTROPY ===
+Before model.fit(), add:
+    y_train_encoded = tf.keras.utils.to_categorical(y_train, 2)
+    y_test_encoded = tf.keras.utils.to_categorical(y_test, 2)
+
+Then in model.fit():
+    X_train, y_train_encoded,  # Use one-hot encoded
+    
+=== FIX #4: ADD EARLY STOPPING & LR REDUCTION ===
+Add these callbacks to model.fit():
+    callbacks=[
+        tf.keras.callbacks.EarlyStopping(
+            monitor='val_loss',
+            patience=3,
+            restore_best_weights=True
+        ),
+        tf.keras.callbacks.ReduceLROnPlateau(
+            monitor='val_loss',
+            factor=0.5,
+            patience=2,
+            min_lr=1e-6
+        )
+    ]
+
+=== FIX #5: ADD VALIDATION SPLIT ===
+In model.fit(), add:
+    validation_split=0.2
+
+=== FIX #6: CHECK ACTUAL CLASS WEIGHTS BEING USED ===
+Print this BEFORE model.fit():
+    print(f"Class weight ratio (Burn/No-Burn): {class_weights[1] / class_weights[0]:.2f}x")
+    print(f"This means Burn samples get {class_weights[1] / class_weights[0]:.0f}x more weight")
+
+=== WHY THIS FIXES SOFTMAX COLLAPSE ===
+1. weight_1 * 0.3 was REDUCING burn importance when we need to INCREASE it
+2. class_weight helps, but we also need a better loss function
+3. binary_crossentropy + balanced weights = model learns to differentiate
+4. Early stopping prevents overfitting to the imbalance
+
+Expected result:
+- Loss will NOT get stuck at 0.693
+- Probabilities will spread (not all 0.503)
+- Recall on burn class will be > 0.0
