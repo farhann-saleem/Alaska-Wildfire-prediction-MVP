@@ -1,0 +1,245 @@
+Loading large GeoTIFF into memory and extracting patches...
+✓ Metadata loaded: 30102 patches
+✓ GeoTIFF loaded: (3, 11142, 11133) (bands, height, width)
+✓ Transposed to (H, W, C): (11142, 11133, 3)
+
+--- Patch Extraction Summary ---
+  Total patches iterated: 30102
+  Valid patches loaded: 29904
+  NaN patches skipped: 198
+  Labels loaded: 29904
+
+--- Data Array Shapes ---
+  X shape: (29904, 64, 64, 3) (samples, height, width, channels)
+  y shape: (29904,)
+  X dtype: float32
+  X value range: [0.000100, 1.723200]
+
+--- Class Distribution ---
+  Class 0:  29393 (98.29%)
+  Class 1:    511 ( 1.71%)
+
+✓ Data loading complete!
+
+
+====================================================================
+STEP 2: Train-Test Split
+======================================================================
+✓ Stratified split completed
+  Training samples: 22428
+  Test samples: 7476
+  Total: 29904
+
+--- Train Set Class Distribution ---
+  Class 0:  22045 (98.29%)
+
+
+
+======================================================================
+STEP 3: Class Weight Calculation
+======================================================================
+✓ Class weights calculated (NO SCALING):
+  Class 0 (No-Burn) weight: 0.508634
+  Class 1 (Burn) weight: 29.454012
+  Ratio (Burn/No-Burn): 57.91x
+
+  ✓ Burn class has 58x MORE importance than No-Burn
+
+
+======================================================================
+STEP 4: Label Encoding
+======================================================================
+✓ Labels converted to one-hot encoding
+  y_train_encoded shape: (22428, 2)
+  Example (Burn=1): [1. 0.]
+  Example (No-Burn=0): [1. 0.]
+
+
+
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)        ┃ Output Shape      ┃    Param # ┃ Connected to      ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ input_layer         │ (None, 64, 64, 3) │          0 │ -                 │
+│ (InputLayer)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d (Conv2D)     │ (None, 64, 64,    │      2,432 │ input_layer[0][0] │
+│                     │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ max_pooling2d       │ (None, 32, 32,    │          0 │ conv2d[0][0]      │
+│ (MaxPooling2D)      │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_1 (Conv2D)   │ (None, 32, 32,    │      9,248 │ max_pooling2d[0]… │
+│                     │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_3 (Conv2D)   │ (None, 32, 32,    │      1,056 │ max_pooling2d[0]… │
+│                     │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_2 (Conv2D)   │ (None, 32, 32,    │      9,248 │ conv2d_1[0][0]    │
+│                     │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ add (Add)           │ (None, 32, 32,    │          0 │ conv2d_3[0][0],   │
+│                     │ 32)               │            │ conv2d_2[0][0]    │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ re_lu (ReLU)        │ (None, 32, 32,    │          0 │ add[0][0]         │
+│                     │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ max_pooling2d_1     │ (None, 16, 16,    │          0 │ re_lu[0][0]       │
+│ (MaxPooling2D)      │ 32)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_4 (Conv2D)   │ (None, 16, 16,    │     18,496 │ max_pooling2d_1[… │
+│                     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_6 (Conv2D)   │ (None, 16, 16,    │      2,112 │ max_pooling2d_1[… │
+│                     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2d_5 (Conv2D)   │ (None, 16, 16,    │     36,928 │ conv2d_4[0][0]    │
+│                     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ add_1 (Add)         │ (None, 16, 16,    │          0 │ conv2d_6[0][0],   │
+│                     │ 64)               │            │ conv2d_5[0][0]    │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ re_lu_1 (ReLU)      │ (None, 16, 16,    │          0 │ add_1[0][0]       │
+│                     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ max_pooling2d_2     │ (None, 8, 8, 64)  │          0 │ re_lu_1[0][0]     │
+│ (MaxPooling2D)      │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ flatten (Flatten)   │ (None, 4096)      │          0 │ max_pooling2d_2[… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dropout (Dropout)   │ (None, 4096)      │          0 │ flatten[0][0]     │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dense (Dense)       │ (None, 128)       │    524,416 │ dropout[0][0]     │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dropout_1 (Dropout) │ (None, 128)       │          0 │ dense[0][0]       │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dense_1 (Dense)     │ (None, 2)         │        258 │ dropout_1[0][0]   │
+└─────────────────────┴───────────────────┴────────────┴───────────────────┘
+
+
+======================================================================
+STEP 8: TRAINING
+======================================================================
+
+Starting training with ALL FIXES applied:
+  ✅ Fix #1: No class weight scaling
+  ✅ Fix #2: One-hot encoding for labels
+  ✅ Fix #3: FOCAL LOSS (custom, no external deps)
+  ✅ Fix #4: Early stopping + LR reduction
+  ✅ Fix #5: Validation split + class weights
+  ✅ Higher LR: 0.01 instead of 0.001
+  ✅ More epochs: 50 instead of 30
+
+Training config:
+  Epochs: 50
+  Batch Size: 32
+  Training samples: 22428
+  Validation split: 20%
+
+======================================================================
+Epoch 1/50
+561/561 ━━━━━━━━━━━━━━━━━━━━ 66s 108ms/step - accuracy: 0.9817 - loss: 0.1349 - val_accuracy: 0.9831 - val_loss: 0.0683 - learning_rate: 0.0100
+Epoch 2/50
+561/561 ━━━━━━━━━━━━━━━━━━━━ 79s 104ms/step - accuracy: 0.9829 - loss: 0.1268 - val_accuracy: 0.9831 - val_loss: 0.0683 - learning_rate: 0.0100
+...
+
+======================================================================
+✓ TRAINING COMPLETED!
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+======================================================================
+STEP 9: Training Analysis
+======================================================================
+
+--- Loss Progression ---
+Initial loss:  0.134855
+Final loss:    0.127095
+Best val loss: 0.068267
+
+Loss values (first 10 epochs):
+  Epoch  1: train=0.1349, val=0.0683
+  Epoch  2: train=0.1268, val=0.0683
+  Epoch  3: train=0.1235, val=0.0683
+  Epoch  4: train=0.1315, val=0.0683
+  Epoch  5: train=0.1271, val=0.0683
+
+✓ Loss DECREASED (model is learning!)
+
+
+
+======================================================================
+STEP 11: Probability Distribution Analysis
+======================================================================
+
+--- Burn Class Probability Statistics ---
+  Min probability:    0.000000
+  Max probability:    0.000000
+  Mean probability:   0.000000
+  Median probability: 0.000000
+  Std deviation:      0.000000
+
+✓ Probabilities are SPREAD (not stuck!)
+   Range span: 0.000000
+
+
+
+======================================================================
+STEP 12: Classification Metrics
+======================================================================
+
+--- Main Metrics ---
+  Accuracy:  0.982879
+  Recall:    0.000000
+  F1 Score:  0.000000
+
+--- Confusion Matrix ---
+  True Negatives:    7348 (correctly predicted No-Burn)
+  False Positives:      0 (incorrectly predicted Burn)
+  False Negatives:    128 (missed Burn - IMPORTANT!)
+  True Positives:       0 (correctly predicted Burn)
+
+--- Success Indicators ---
+  ✗ Recall > 0.3: NO (0.0000)
+  ✗ F1 > 0.2: NO (0.0000)
+  ✓ Final Loss < 0.5: YES (0.1271)
+
+
+  
+======================================================================
+FINAL SUMMARY
+======================================================================
+
+✓ TRAINING COMPLETE!
+
+Performance Summary:
+  - Loss: 0.127095 (should be < 0.5, not stuck at 0.693)
+  - Accuracy: 0.982879
+  - Recall (Burn): 0.000000 (should be > 0)
+  - F1 Score: 0.000000
+
+✓ All Fixes Applied:
+  1. ✓ Removed class weight scaling (* 0.3)
+  2. ✓ One-hot encoded labels
+  3. ✓ Changed to categorical_crossentropy
+  4. ✓ Added early stopping & LR reduction
+  5. ✓ Added validation split & class weights
+
+Next Steps:
+  1. If Recall < 0.3: Try focal loss or SMOTE oversampling
+  2. If Recall > 0.3: ✓ Phase 1 MVP DONE!
+  3. Move to Phase 2: Add Sentinel-1 SAR data
+  4. Phase 3: Integrate weather data & CNN-LSTM
+...
+
+======================================================================
+End of training cell - YOU CAN RUN THIS AGAIN WITH DIFFERENT CONFIG
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+
+
+
+
+

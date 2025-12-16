@@ -1,0 +1,145 @@
+
+======================================================================
+STEP 8: TRAINING
+======================================================================
+
+Starting training with ALL FIXES applied:
+  ✅ Fix #1: No class weight scaling
+  ✅ Fix #2: One-hot encoding for labels
+  ✅ Fix #3: categorical_crossentropy loss
+  ✅ Fix #4: Early stopping + LR reduction
+  ✅ Fix #5: Validation split + class weights
+
+Training config:
+  Epochs: 30
+  Batch Size: 32
+  Training samples: 22428
+  Validation split: 20%
+
+======================================================================
+Epoch 1/30
+561/561 ━━━━━━━━━━━━━━━━━━━━ 64s 105ms/step - accuracy: 0.2178 - loss: 0.7557 - val_accuracy: 0.0544 - val_loss: 0.7204 - learning_rate: 0.0010
+Epoch 2/30
+561/561 ━━━━━━━━━━━━━━━━━━━━ 83s 107ms/step - accuracy: 0.3116 - loss: 0.7125 - val_accuracy: 0.0169 - val_loss: 0.7124 - learning_rate: 0.0010
+Epoch 3/30
+561/561 ━━━━━━━━━━━━━━━━━━━━ 57s 102ms/step - accuracy: 0.1476 - loss: 0.6963 - val_accuracy: 0.9831 - val_loss: 0.6900 - learning_rate: 0.0010
+...
+
+======================================================================
+✓ TRAINING COMPLETED!
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+
+
+======================================================================
+STEP 9: Training Analysis
+======================================================================
+
+--- Loss Progression ---
+Initial loss:  0.755746
+Final loss:    0.696271
+Best val loss: 0.689981
+
+Loss values (first 10 epochs):
+  Epoch  1: train=0.7557, val=0.7204
+  Epoch  2: train=0.7125, val=0.7124
+  Epoch  3: train=0.6963, val=0.6900
+  Epoch  4: train=0.6987, val=0.6919
+  Epoch  5: train=0.8940, val=0.7489
+  Epoch  6: train=0.7173, val=0.7252
+  Epoch  7: train=0.6963, val=0.7136
+
+✓ Loss DECREASED (model is learning!)
+
+
+
+======================================================================
+STEP 10: Evaluation on Test Set
+======================================================================
+
+Generating predictions on 7476 test samples...
+✓ Predictions completed
+
+
+======================================================================
+STEP 11: Probability Distribution Analysis
+======================================================================
+
+--- Burn Class Probability Statistics ---
+  Min probability:    0.494062
+  Max probability:    0.498380
+  Mean probability:   0.498356
+  Median probability: 0.498368
+  Std deviation:      0.000124
+
+✗ WARNING: Probabilities appear STUCK near 0.5!
+   This indicates softmax collapse - check the fixes!
+
+
+
+
+
+======================================================================
+STEP 12: Classification Metrics
+======================================================================
+
+--- Main Metrics ---
+  Accuracy:  0.982879
+  Recall:    0.000000
+  F1 Score:  0.000000
+
+--- Confusion Matrix ---
+  True Negatives:    7348 (correctly predicted No-Burn)
+  False Positives:      0 (incorrectly predicted Burn)
+  False Negatives:    128 (missed Burn - IMPORTANT!)
+  True Positives:       0 (correctly predicted Burn)
+
+--- Success Indicators ---
+  ✗ Recall > 0.3: NO (0.0000)
+  ✗ F1 > 0.2: NO (0.0000)
+  ✗ Final Loss < 0.5: NO (0.6963)
+
+
+  
+======================================================================
+FINAL SUMMARY
+======================================================================
+
+✓ TRAINING COMPLETE!
+
+Performance Summary:
+  - Loss: 0.696271 (should be < 0.5, not stuck at 0.693)
+  - Accuracy: 0.982879
+  - Recall (Burn): 0.000000 (should be > 0)
+  - F1 Score: 0.000000
+
+✓ All Fixes Applied:
+  1. ✓ Removed class weight scaling (* 0.3)
+  2. ✓ One-hot encoded labels
+  3. ✓ Changed to categorical_crossentropy
+  4. ✓ Added early stopping & LR reduction
+  5. ✓ Added validation split & class weights
+
+Next Steps:
+  1. If Recall < 0.3: Try focal loss or SMOTE oversampling
+  2. If Recall > 0.3: ✓ Phase 1 MVP DONE!
+  3. Move to Phase 2: Add Sentinel-1 SAR data
+  4. Phase 3: Integrate weather data & CNN-LSTM
+...
+
+======================================================================
+End of training cell - YOU CAN RUN THIS AGAIN WITH DIFFERENT CONFIG
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+
+
+
+
+
+
+
+

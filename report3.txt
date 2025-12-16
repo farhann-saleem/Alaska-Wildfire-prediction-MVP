@@ -1,0 +1,148 @@
+
+======================================================================
+STEP 8: TRAINING
+======================================================================
+
+Starting training with ALL FIXES applied:
+  ✅ Fix #1: No class weight scaling
+  ✅ Fix #2: One-hot encoding for labels
+  ✅ Fix #3: categorical_crossentropy + sample weights
+  ✅ Explicit 58x Burn class weighting via sample_weight
+  ✅ Threshold tuning to catch Burn cases
+  ✅ Fix #4: Early stopping + LR reduction
+  ✅ Fix #5: Validation split + class weights
+  ✅ Higher LR: 0.01 instead of 0.001
+  ✅ More epochs: 50 instead of 30
+
+Training config:
+  Epochs: 50
+  Batch Size: 32
+  Training samples: 22428
+  Validation split: 20%
+
+======================================================================
+Epoch 1/50
+561/561 ━━━━━━━━━━━━━━━━━━━━ 65s 106ms/step - accuracy: 0.4041 - loss: 49.5239 - val_accuracy: 0.0189 - val_loss: 1.3637 - learning_rate: 0.0100
+...
+
+======================================================================
+✓ TRAINING COMPLETED!
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+
+======================================================================
+STEP 9: Training Analysis
+======================================================================
+
+--- Loss Progression ---
+Initial loss:  49.523876
+Final loss:    1.371041
+Best val loss: 1.362517
+
+Loss values (first 10 epochs):
+  Epoch  1: train=49.5239, val=1.3637
+  Epoch  2: train=1.4414, val=1.3627
+  Epoch  3: train=1.3739, val=1.3625
+  Epoch  4: train=1.3761, val=1.3648
+  Epoch  5: train=1.3729, val=1.3646
+  Epoch  6: train=1.3726, val=1.3661
+  Epoch  7: train=1.3732, val=1.3625
+  Epoch  8: train=1.3707, val=1.3626
+  Epoch  9: train=1.3691, val=1.3629
+  Epoch 10: train=1.3702, val=1.3626
+
+✓ Loss DECREASED (model is learning!)
+
+
+
+
+
+======================================================================
+STEP 11: Probability Distribution Analysis
+======================================================================
+
+--- Burn Class Probability Statistics ---
+  Min probability:    0.497825
+  Max probability:    0.497825
+  Mean probability:   0.497826
+  Median probability: 0.497825
+  Std deviation:      0.000000
+
+✗ WARNING: Probabilities appear STUCK near 0.5!
+   This indicates softmax collapse - check the fixes!
+
+
+
+   
+======================================================================
+STEP 12: Classification Metrics
+======================================================================
+
+--- Main Metrics ---
+  Accuracy:  0.017121
+  Recall:    1.000000
+  F1 Score:  0.033666
+
+--- Confusion Matrix ---
+  True Negatives:       0 (correctly predicted No-Burn)
+  False Positives:   7348 (incorrectly predicted Burn)
+  False Negatives:      0 (missed Burn - IMPORTANT!)
+  True Positives:     128 (correctly predicted Burn)
+
+--- Success Indicators ---
+  ✓ Recall > 0.3: YES (1.0000)
+  ✗ F1 > 0.2: NO (0.0337)
+  ✗ Final Loss < 0.5: NO (1.3710)
+
+
+  
+======================================================================
+FINAL SUMMARY
+======================================================================
+
+✓ TRAINING COMPLETE!
+
+Performance Summary:
+  - Loss: 1.371041 (should be < 0.5, not stuck at 0.693)
+  - Accuracy: 0.017121
+  - Recall (Burn): 1.000000 (should be > 0)
+  - F1 Score: 0.033666
+
+✓ All Fixes Applied:
+  1. ✓ Removed class weight scaling (* 0.3)
+  2. ✓ One-hot encoded labels
+  3. ✓ Changed to categorical_crossentropy
+  4. ✓ Added early stopping & LR reduction
+  5. ✓ Added validation split & class weights
+
+Next Steps:
+  1. If Recall < 0.3: Try focal loss or SMOTE oversampling
+  2. If Recall > 0.3: ✓ Phase 1 MVP DONE!
+  3. Move to Phase 2: Add Sentinel-1 SAR data
+  4. Phase 3: Integrate weather data & CNN-LSTM
+...
+
+======================================================================
+End of training cell - YOU CAN RUN THIS AGAIN WITH DIFFERENT CONFIG
+======================================================================
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
