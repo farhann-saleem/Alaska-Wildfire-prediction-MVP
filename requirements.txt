@@ -1,10 +1,14 @@
-# Core data handling and processing
-rasterio                  # For reading and processing GeoTIFFs (we just used this) [cite: 639]
-numpy                     # For numerical operations on image arrays [cite: 639]
-pandas                    # For creating and managing the patch metadata CSV [cite: 721, 744]
+# Core Data Science
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
 
-# Machine Learning libraries (for Step 9 - Baseline Model)
-torch   
-tensorflow                  # PyTorch deep learning framework (often preferred) [cite: 367, 755]
-# You can replace 'torch' with 'tensorflow' if that is your preference, but let's stick to PyTorch for now as a default
-scikit-learn              # For basic metrics and model evaluation (e.g., F1-score, confusion matrix)
+
+# Geospatial Processing
+rasterio
+
+# Deep Learning
+tensorflow
+jupyter
