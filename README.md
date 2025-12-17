@@ -100,7 +100,7 @@ Training outputs are automatically saved:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 wildfire-prediction-mvp/
@@ -132,7 +132,7 @@ wildfire-prediction-mvp/
 
 ---
 
-## 🔬 Technical Approach
+##  Technical Approach
 
 ### Data Pipeline
 
@@ -166,7 +166,7 @@ The dataset has extreme imbalance (98.3% no-burn, 1.7% burn). Solutions implemen
 
 ---
 
-## 📊 Dataset
+##  Dataset
 
 **Source:** [Alaska Satellite Imagery Wildfire Prediction](https://github.com/YaliWang2019/AK-Satellite-Imagery-Wildfire-Prediction)
 
@@ -180,9 +180,9 @@ The dataset has extreme imbalance (98.3% no-burn, 1.7% burn). Solutions implemen
 
 ---
 
-## 🗺️ Roadmap
+##  Roadmap
 
-### ✅ Phase 1: Baseline CNN (Completed)
+###  Phase 1: Baseline CNN (Completed)
 - [x] Data pipeline for Sentinel-2 + MTBS
 - [x] Patch extraction and metadata generation
 - [x] Enhanced CNN with residual blocks
@@ -190,19 +190,19 @@ The dataset has extreme imbalance (98.3% no-burn, 1.7% burn). Solutions implemen
 - [x] Training visualization and metrics
 - [x] Achieve >50% recall on test set
 
-### 🎯 Phase 2: Multi-modal Fusion (GSoC 2026 Proposal)
+###  Phase 2: Multi-modal Fusion (GSoC 2026 Proposal)
 - [ ] Integrate Sentinel-1 SAR data (cloud-penetrating radar)
 - [ ] Add weather variables (temperature, humidity, wind)
 - [ ] Implement fusion architecture (early/late fusion experiments)
 - [ ] Reduce false positive rate
 
-### 🎯 Phase 3: Temporal Modeling (GSoC 2026 Proposal)
+###  Phase 3: Temporal Modeling (GSoC 2026 Proposal)
 - [ ] Time-series data preparation (multi-temporal Sentinel-2)
 - [ ] CNN-LSTM hybrid architecture
 - [ ] Temporal attention mechanisms
 - [ ] Fire progression prediction
 
-### 🎯 Phase 4: Deployment (GSoC 2026 Proposal)
+###  Phase 4: Deployment (GSoC 2026 Proposal)
 - [ ] Web-based inference dashboard
 - [ ] Real-time prediction API
 - [ ] Interactive map visualization (Leaflet/Mapbox)
@@ -210,7 +210,7 @@ The dataset has extreme imbalance (98.3% no-burn, 1.7% burn). Solutions implemen
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 This project is being developed as part of **Google Summer of Code 2026** with the University of Alaska Anchorage. Contributions, suggestions, and feedback are welcome!
 
@@ -224,7 +224,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 📚 Documentation
+##  Documentation
 
 Detailed documentation is available in the `docs/` directory:
 
@@ -234,13 +234,13 @@ Detailed documentation is available in the `docs/` directory:
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **[University of Alaska Anchorage](https://www.uaa.alaska.edu/)** - Project mentorship and support
 - **[Google Summer of Code](https://summerofcode.withgoogle.com/)** - Program framework and funding
@@ -250,7 +250,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📧 Contact
+##  Contact
 
 **Developer:** [Your Name]  
 **Project Repository:** [https://github.com/YaliWang2019/AK-Satellite-Imagery-Wildfire-Prediction](https://github.com/YaliWang2019/AK-Satellite-Imagery-Wildfire-Prediction)  

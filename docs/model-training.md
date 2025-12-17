@@ -294,9 +294,9 @@ Final:    loss=0.322, val_loss=0.378
 ```
 
 **Key Indicators:**
-- ✅ **Loss decreases:** Model is learning
-- ✅ **Val loss tracks train loss:** Not overfitting
-- ✅ **Plateaus after ~25 epochs:** Early stopping triggers
+-  **Loss decreases:** Model is learning
+-  **Val loss tracks train loss:** Not overfitting
+-  **Plateaus after ~25 epochs:** Early stopping triggers
 
 ---
 
@@ -422,10 +422,10 @@ F1 = 2 × (Precision × Recall) / (Precision + Recall) = 0.165
 
 ## Phase 1 Achievements
 
-✅ **Baseline Established:** Demonstrated pipeline viability  
-✅ **Imbalance Solved:** 58.6% recall despite 57:1 imbalance  
-✅ **Reproducible:** Fixed seeds, documented hyperparameters  
-✅ **Extensible:** Modular design for future enhancements
+**Baseline Established:** Demonstrated pipeline viability  
+**Imbalance Solved:** 58.6% recall despite 57:1 imbalance  
+**Reproducible:** Fixed seeds, documented hyperparameters  
+**Extensible:** Modular design for future enhancements
 
 ---
 

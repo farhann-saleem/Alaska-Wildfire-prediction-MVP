@@ -116,7 +116,7 @@ assert sentinel_src.width == burn_src.width, \
 assert sentinel_src.height == burn_src.height, \
     "Height mismatch! Check GEE export."
 
-print(f"✅ Alignment verified: {sentinel_src.crs}")
+print(f" Alignment verified: {sentinel_src.crs}")
 print(f"   Dimensions: {sentinel_src.width} x {sentinel_src.height}")
 ```
 
@@ -389,9 +389,9 @@ Test Set:
 ## Performance Optimizations
 
 ### Current (Phase 1)
-- ✅ Single-pass GeoTIFF reading
-- ✅ In-memory array operations
-- ✅ NumPy vectorization
+-  Single-pass GeoTIFF reading
+-  In-memory array operations
+-  NumPy vectorization
 
 ### Planned (Future Phases)
 - Dask for distributed processing

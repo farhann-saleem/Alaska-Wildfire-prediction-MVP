@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to the Alaska Wildfire Prediction project! This project is part of **Google Summer of Code 2026** with the University of Alaska Anchorage.
 
-## 🌟 Ways to Contribute
+##  Ways to Contribute
 
 - **Code contributions:** Implement new features, fix bugs, improve performance
 - **Documentation:** Enhance docs, write tutorials, improve README
@@ -12,7 +12,7 @@ Thank you for your interest in contributing to the Alaska Wildfire Prediction pr
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Development Setup
 
@@ -40,7 +40,7 @@ Thank you for your interest in contributing to the Alaska Wildfire Prediction pr
 
 ---
 
-## 📝 Contribution Guidelines
+## Contribution Guidelines
 
 ### Code Style
 
@@ -142,7 +142,7 @@ def test_model_creation():
 
 ---
 
-## 📚 Documentation
+##  Documentation
 
 ### Adding Documentation
 
@@ -159,7 +159,7 @@ def test_model_creation():
 
 ---
 
-## 🐛 Reporting Bugs
+##  Reporting Bugs
 
 ### Before Submitting
 
@@ -193,7 +193,7 @@ Error logs, screenshots, etc.
 
 ---
 
-## 💡 Feature Requests
+##  Feature Requests
 
 We welcome ideas for new features! Please:
 
@@ -225,7 +225,7 @@ If you're applying for **GSoC 2026**, please:
 
 ---
 
-## 🤝 Code of Conduct
+##  Code of Conduct
 
 ### Our Pledge
 
@@ -247,7 +247,7 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ---
 
-## 📧 Contact & Communication
+##  Contact & Communication
 
 ### Primary Channels
 
@@ -262,7 +262,7 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ---
 
-## 🏆 Recognition
+##  Recognition
 
 Contributors will be:
 - Listed in the project README
@@ -271,10 +271,10 @@ Contributors will be:
 
 ---
 
-## 📄 License
+##  License
 
 By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE).
 
 ---
 
-Thank you for helping make Alaska safer from wildfires! 🔥🌲
+Thank you for helping make Alaska safer from wildfires! 

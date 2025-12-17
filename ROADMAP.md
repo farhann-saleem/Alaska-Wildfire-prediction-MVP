@@ -24,9 +24,9 @@ gantt
 
 ---
 
-## ✅ Phase 1: Baseline CNN (COMPLETED)
+##  Phase 1: Baseline CNN (COMPLETED)
 
-**Status:** ✅ Completed (December 2024)  
+**Status:**  Completed (December 2024)  
 **Duration:** 2 weeks  
 **Goal:** Prove concept viability with foundational model
 
@@ -42,17 +42,17 @@ gantt
 
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
-| Recall (Burn) | 58.6% | >50% | ✅ Exceeded |
-| Accuracy | 89.8% | >80% | ✅ Exceeded |
-| F1 Score | 16.5% | >10% | ✅ Exceeded |
+| Recall (Burn) | 58.6% | >50% |  Exceeded |
+| Accuracy | 89.8% | >80% |  Exceeded |
+| F1 Score | 16.5% | >10% |  Exceeded |
 
 ### Deliverables
 
-- ✅ Preprocessing scripts (`preprocess.py`)
-- ✅ Training notebook (`main.ipynb`)
-- ✅ Model architecture (`Enhanced CNN`)
-- ✅ Documentation suite (`docs/`)
-- ✅ GSoC proposal draft
+-  Preprocessing scripts (`preprocess.py`)
+-  Training notebook (`main.ipynb`)
+-  Model architecture (`Enhanced CNN`)
+-  Documentation suite (`docs/`)
+-  GSoC proposal draft
 
 ---
 
@@ -163,9 +163,9 @@ gantt
 
 ---
 
-## 🚀 Phase 4: Web Dashboard & Deployment (GSoC 2026 Proposal)
+##  Phase 4: Web Dashboard & Deployment (GSoC 2026 Proposal)
 
-**Status:** 📋 Planned (GSoC October-November 2026)  
+**Status:**  Planned (GSoC October-November 2026)  
 **Duration:** 6 weeks (Small project: 90 hours)  
 **Goal:** Deploy operational early warning system for stakeholders
 
@@ -281,9 +281,9 @@ gantt
 
 | Date | Phase | Update |
 |------|-------|--------|
-| 2024-12-17 | Phase 1 | ✅ MVP completed, 58.6% recall achieved |
-| 2025-01-15 | Phase 2 | 📋 GSoC proposal submitted |
-| 2026-05-27 | Phase 2 | 🚀 GSoC begins (planned) |
+| 2024-12-17 | Phase 1 |  MVP completed, 58.6% recall achieved |
+| 2025-01-15 | Phase 2 | GSoC proposal submitted |
+| 2026-05-27 | Phase 2 |  GSoC begins (planned) |
 
 ---
 
