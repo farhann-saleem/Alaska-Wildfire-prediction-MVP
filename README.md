@@ -52,8 +52,27 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 > 📖 **Read the Full Story:** [The Debugging Journey: Solving the Amazon Rainfall Anomaly](docs/debugging_journey.md)
 
 #### Phase 2 Visualizations (511 Fire Patches)
-![Weather Correlations](results/phase2/correlation_heatmap.png)
-*(See [detailed analysis](docs/phase2-weather-analysis.md) for distribution plots)*
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="results/phase2/correlation_heatmap.png" alt="Correlation Heatmap" width="100%">
+      <br><b>Correlation Heatmap</b>
+    </td>
+    <td align="center" width="50%">
+      <img src="results/phase2/variable_distributions.png" alt="Variable Distributions" width="100%">
+      <br><b>Variable Distributions</b>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="results/phase2/vpd_distribution.png" alt="VPD Distribution" width="60%">
+      <br><b>VPD Distribution Analysis</b>
+    </td>
+  </tr>
+</table>
+
+*(See [detailed analysis](docs/phase2-weather-analysis.md) for full interpretation)*
 
 **Scientific Implications:**
 1.  **Alaska fires are mechanistically different** from temperate wildfires.
@@ -66,9 +85,9 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 
 Our hybrid pipeline integrates optical imagery with multi-source climate data.
 
-[![Architecture](https://mermaid.ink/img/pako:eNqVkstqwzAQRX9FzCqF_AAfC9200G27KS0kXgyOrSGWjCS5hBDy7x0_bFMobTfS4M65c2RjQyljhUJS89o2vKGNw9dCl1T_Wc-V1IXWpZKaP1RXUn6yUjT8ybJ8Z6VxvLRS08_z8sVK48VK_8VK4_lK-8lK49lK-8VK49lK-8lK491K-8VKw81KO2elcLNqG979s1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96L91J46GrD-_FeCs9dbfj5eC-F5642_Hy8l8JzVxv-P95L4bmrDf8f76Xw3NWG_4_3Unjuanu-30vhuatt-f9et4b7Xm3L_3vdGu57tS3_73VruO_Vtvy_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdqm__9et4b7Xm3T__-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-Vm00vN9qW_1_v9WG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91t)](docs/architecture.md)
+👉 [**Read Full Architecture Document**](docs/architecture.md)
 
-👉 [Read Full Architecture Doc](docs/architecture.md)
+> *See `docs/architecture.md` for the detailed Mermaid diagram of the System & Data Pipeline.*
 
 ---
 
