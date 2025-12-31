@@ -66,9 +66,9 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 
 Our hybrid pipeline integrates optical imagery with multi-source climate data.
 
-[![Architecture](https://mermaid.ink/img/pako:eNqVkstqwzAQRX9FzCqF_AAfC9200G27KS0kXgyOrSGWjCS5hBDy7x0_bFMobTfS4M65c2RjQyljhUJS89o2vKGNw9dCl1T_Wc-V1IXWpZKaP1RXUn6yUjT8ybJ8Z6VxvLRS08_z8sVK48VK_8VK4_lK-8lK49lK-8VK49lK-8lK491K-8VKw81KO2elcLNqG979s1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96L91J46GrD-_FeCs9dbfj5eC-F5642_Hy8l8JzVxv-P95L4bmrDf8f76Xw3NWG_4_3Unjuanu-30vhuatt-f9et4b7Xm3L_3vdGu57tS3_73VruO_Vtvy_163hvlfP8v9et4b7Xm1X_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdqm__9et4b7Xm3T__-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-Vm00vN9qW_1_v9WG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91t)](docs/architecture.md)
+[![Architecture](https://mermaid.ink/img/pako:eNqVkstqwzAQRX9FzCqF_AAfC9200G27KS0kXgyOrSGWjCS5hBDy7x0_bFMobTfS4M65c2RjQyljhUJS89o2vKGNw9dCl1T_Wc-V1IXWpZKaP1RXUn6yUjT8ybJ8Z6VxvLRS08_z8sVK48VK_8VK4_lK-8lK49lK-8VK49lK-8lK491K-8VKw81KO2elcLNqG979s1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96Lt1K4d7XhvXgrhXtXG96L91J46GrD-_FeCs9dbfj5eC-F5642_Hy8l8JzVxv-P95L4bmrDf8f76Xw3NWG_4_3Unjuanu-30vhuatt-f9et4b7Xm3L_3vdGu57tS3_73VruO_Vtvy_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdqm__9et4b7Xm3T__-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-V9vq__e6Ndz3alv9_163hvtebav_3-vWcN-rbfX_e90a7nu1rf5_r1vDfa-21f_vdWu479W2-v-9bg33vdpW_7_XreG-Vm00vN9qW_1_v9WG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91tty_9_vdWG91t)](docs/architecture.md)
 
-👉 [Read Full Architecture Doc](docs/architecture.md)
+� [Read Full Architecture Doc](docs/architecture.md)
 
 ---
 
@@ -86,126 +86,50 @@ Our hybrid pipeline integrates optical imagery with multi-source climate data.
 
 ---
 
-## 🚀 Quick Start
-
-**Full installation and usage guide:** [SETUP.md](SETUP.md)
+## � Project Structure
 
 ```bash
-# Clone repository
-git clone https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP.git
-cd wildfire-prediction-mvp
+wildfire-prediction-mvp/
+├── docs/                   # 📚 Documentation
+│   ├── architecture.md     # System Design
+│   ├── debugging_journey.md# The "Amazon Rainfall" anomaly fix
+│   └── phase2-weather-analysis.md
+├── scripts/                # 🐍 Analysis Scripts
+│   ├── era5_analysis.py    # Main Hybrid Weather Pipeline
+│   └── preprocess.py       # Data Prep
+├── results/                # 📊 Output Artifacts
+│   └── phase2/             # Correlations & Plots
+├── data/                   # 🗺️ Data (GitIgnored)
+└── README.md               # You are here
+```
 
-# Install dependencies
-python -m venv venv
-source venv/bin/activate  # Windows: .\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+> **Note:** Debugging scripts have been moved to `archived_scripts/` to keep the repo clean.
 
-# Phase 1: Train detection model
-python scripts/preprocess.py
-python scripts/train_model.py
+---
 
-# Phase 2: Weather analysis (requires GEE authentication)
+## � Quick Start
+
+### 1. Verification
+To verify the Phase 2 analysis (Precipitation Fix):
+```bash
+# This will run the Hybrid Pipeline (ERA5 + GPM)
 python scripts/era5_analysis.py
 ```
 
----
-
-## 📁 Project Structure
-
-```
-wildfire-prediction-mvp/
-├── docs/                       # Research documentation
-│   ├── phase2-weather-analysis.md    # Phase 2 empirical findings
-│   ├── debugging-journey.md          # Phase 1 technical challenges
-│   └── ...
-├── results/phase2/             # Phase 2 outputs
-├── scripts/
-│   ├── preprocess.py           # Phase 1 preprocessing
-│   ├── train_model.py          # Phase 1 training
-│   └── era5_analysis.py        # Phase 2 weather analysis
-├── src/data_pipeline/          # Utilities
-├── README.md                   # This file
-├── SETUP.md                    # Installation & usage guide
-├── ROADMAP.md                  # Research trajectory
-└── requirements.txt            # Python dependencies
-```
-
----
-
-## 🔧 Engineering Challenges (Phase 1)
-
-### Softmax Collapse
-**Problem:** Model predicted "No Burn" for everything (98.3% accuracy, 0% recall)  
-**Solution:** Sample weighting (10×), one-hot encoding, categorical cross-entropy
-
-### Gradient Instability
-**Problem:** Aggressive class weights caused training oscillation  
-**Solution:** Reduced scaling (58× → 10×), lower learning rate (0.01 → 0.0001)
-
-**Full Technical Details:** [docs/debugging-journey.md](docs/debugging-journey.md)
-
----
-
-## 🗺️ Future Research Directions
-
-Based on Phase 2 findings, proposed Phase 3 focuses on:
-
-**Multi-Modal Integration:**
-- **Sentinel-1 SAR:** All-weather vegetation stress detection
-- **Lightning Data:** NOAA strike locations (direct ignition source)
-- **Temporal Modeling:** 60-day fuel accumulation analysis (CNN-LSTM)
-
-**Architecture:** Late fusion (preserve modality-specific signals)
-
-**Contingent on:** GSoC 2026 acceptance
-
-📍 **Full Trajectory:** [ROADMAP.md](ROADMAP.md)
-
----
-
-## 📚 Documentation
-
-- **[SETUP.md](SETUP.md)** - Installation and usage
-- **[Phase 2 Analysis](docs/phase2-weather-analysis.md)** - Weather hypothesis testing
-- **[Debugging Journey](docs/debugging-journey.md)** - Phase 1 technical challenges
-- **[ROADMAP.md](ROADMAP.md)** - Research trajectory
-
----
-
-## 🙏 Acknowledgments
-
-- **[Dr. Yali Wang](https://github.com/YaliWang2019)** - Research mentorship and guidance toward hypothesis-driven approach
-- **[University of Alaska Anchorage](https://www.uaa.alaska.edu/)** - Project support
-- **[Google Summer of Code](https://summerofcode.withgoogle.com/)** - Program framework
-- **[Sentinel-2 Mission](https://sentinel.esa.int/)** - Satellite imagery (ESA)
-- **[MTBS Project](https://www.mtbs.gov/)** - Burn severity data (USGS/USFS)
-- **[Copernicus ERA5](https://www.ecmwf.int/)** - Weather data (ECMWF)
-
-**Related Work:**
-- Wang, Y., et al. (2023). "Toward Energy-Efficient Deep Neural Networks for Forest Fire Detection in an Image." *The Geographical Bulletin*, 64(2), Article 13.
+### 2. View Results
+Results will appear in `results/phase2/`:
+- `era5_weather_correlations.csv`
+- `variable_distributions.png`
 
 ---
 
 ## 🤝 Contributing
 
-This research project welcomes scientific collaboration. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
----
-
-## 📜 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for GSoC engagement rules.
 
 ---
 
 ## 📧 Contact
 
-**Developer:** Farhan Saleem  
-**Repository:** [Alaska-Wildfire-prediction-MVP](https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP)  
-**GSoC Discussion:** [Alaska GSoC](https://github.com/uaanchorage/GSoC/discussions)
-
----
-
-<p align="center">
-  <i>🔥 Understanding wildfire drivers through hypothesis-driven research 🔥</i>
-</p>
+**Author:** Farhan
+**Project:** Alaska Wildfire Prediction MVP (GSoC 2026)
