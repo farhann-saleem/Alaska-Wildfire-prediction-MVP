@@ -96,10 +96,12 @@ Building on Phase 1's successful wildfire detection MVP (58.6% recall), Phase 2 
 | Variable | Mean | Std Dev | Min | Max |
 |----------|------|---------|-----|-----|
 | **Temperature (°C)** | 15.7 | 0.3 | 15.3 | 16.6 |
-| **Precipitation (mm)** | 739.2 | - | - | - |
+| **Precipitation (mm)** | **30.9** | ~1.2 | - | - |
 | **Wind Speed (m/s)** | 1.4 | - | - | - |
 | **Soil Moisture (m³/m³)** | 0.31 | - | - | - |
-| **VPD (kPa)** | **0.70** | 0.02 | 0.67 | 0.80 |
+| **VPD (kPa)** | **0.70** | **0.02** | **0.67** | **0.80** |
+
+> **Correction (Dec 31):** We switched from ERA5 precipitation (which showed artificial 739mm flooding artifacts) to **NASA GPM IMERG V06**, which correctly identifies the conditions as **dry (30.9mm)**.
 
 ### Interpretation
 
@@ -108,7 +110,7 @@ Building on Phase 1's successful wildfire detection MVP (58.6% recall), Phase 2 
 | Metric | High Fire Risk | Alaska Fires (Observed) | Assessment |
 |--------|----------------|------------------------|------------|
 | VPD | > 1.0 kPa | 0.70 kPa | **LOW** ❌ |
-| Precipitation | < 50 mm/month | 739 mm/month | **WET** ❌ |
+| Precipitation | < 50 mm/month | **30.9 mm/month** | **DRY** ✅ |
 | Temperature | > 25-30°C | 15.7°C | **MODERATE** ❌ |
 
 ### Visualizations

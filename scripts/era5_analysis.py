@@ -66,30 +66,59 @@ def calculate_vpd(temp_c, dewpoint_c):
     return es - ea
 
 
+def check_accumulation():
+    """Debug function to check if precipitation is accumulated or hourly rate"""
+    print("\n--- DEBUG: CHECKING PRECIPITATION ACCUMULATION ---")
+    point = ee.Geometry.Point([-150.1348, 64.7902])  # Sample location
+    start = ee.Date("2021-06-01T00:00:00")
+    end = start.advance(6, "hour")
+
+    col = (
+        ee.ImageCollection("ECMWF/ERA5_LAND/HOURLY")
+        .filterDate(start, end)
+        .filterBounds(point)
+    )
+    values = col.select("total_precipitation").getRegion(point, 1000).getInfo()
+
+    print("Precipitation values (Meters) for 6 consecutive hours:")
+    header = values[0]
+    for row in values[1:]:
+        print(f"  {row[0]} {pd.to_datetime(row[3], unit='ms')}: {row[4]}")
+
+    vals = [row[4] for row in values[1:]]
+    if all(x <= y for x, y in zip(vals, vals[1:])) and sum(vals) > 0:
+        print(">> DATA APPEARS ACCUMULATED (Monotonic Increase)")
+    else:
+        print(">> DATA APPEARS DE-ACCUMULATED (Fluctuating)")
+    print("--------------------------------------------------\n")
+
+
 def fetch_era5_data(patches_df, days_before=30):
     """
-    Fetches ERA5 weather data for 30-day window BEFORE each fire.
+    Fetches weather data for 30-day window BEFORE each fire.
+
+    Hybrid Strategy:
+    1. ERA5_LAND/HOURLY (11km) -> Temperature, Wind, Soil Moisture
+    2. NASA GPM IMERG V06 (10km) -> Precipitation (Corrected Source)
+       * ERA5 was overestimating precip by ~27x (artifacts).
+       * GPM provides accurate satellite-based precip rates.
 
     CRITICAL: Prevents data leakage by only using pre-fire weather.
-    Each fire patch gets its own custom time window.
-
-    Args:
-        patches_df: DataFrame with fire patch locations and dates
-        days_before: Days of pre-fire weather to analyze
-
-    Returns:
-        DataFrame with weather statistics for each patch
     """
-    print(f"\nFetching ERA5 data for {len(patches_df)} fire patches...")
+    print(f"\nFetching Weather Data (ERA5-Land + GPM IMERG)...")
     print(f"Time window: {days_before} days before each fire ignition")
 
-    # ERA5-Land Hourly for high temporal resolution
-    era5 = ee.ImageCollection("ECMWF/ERA5_LAND/HOURLY")
+    # 1. ERA5 for State Variables
+    era5_hourly = ee.ImageCollection("ECMWF/ERA5_LAND/HOURLY")
+
+    # 2. GPM for Precipitation (Gold Standard)
+    gpm_col = ee.ImageCollection("NASA/GPM_L3/IMERG_V06")
 
     results = []
     failed = 0
 
-    for index, row in patches_df.iterrows():
+    # Use enumerate to get a clean 0-based counter for progress
+    for i, (index, row) in enumerate(patches_df.iterrows()):
         patch_id = row.get("patch_id", index)
 
         try:
@@ -101,26 +130,25 @@ def fetch_era5_data(patches_df, days_before=30):
             # Create point geometry from fire location
             point = ee.Geometry.Point([row["longitude"], row["latitude"]])
 
-            # Filter ERA5 collection for this patch's time and location
-            filtered = era5.filterDate(start_date, end_date).filterBounds(point)
+            # --- PART A: ERA5 Variables (Temp, Wind, Soil) ---
+            hourly_filtered = era5_hourly.filterDate(start_date, end_date).filterBounds(
+                point
+            )
 
-            # Add derived variables (wind speed from u/v components)
-            def add_derived(image):
+            def add_wind(image):
                 u = image.select("u_component_of_wind_10m")
                 v = image.select("v_component_of_wind_10m")
                 wind_speed = (u.pow(2).add(v.pow(2))).sqrt().rename("wind_speed")
                 return image.addBands(wind_speed)
 
-            processed_col = filtered.map(add_derived)
-
-            # Reduce 30-day window to mean statistics
-            stats = (
-                processed_col.select(
+            # Reduce ERA5 -> Mean Stats
+            era5_stats = (
+                hourly_filtered.map(add_wind)
+                .select(
                     [
                         "temperature_2m",
-                        "total_precipitation",
-                        "volumetric_soil_water_layer_1",
                         "dewpoint_temperature_2m",
+                        "volumetric_soil_water_layer_1",
                         "wind_speed",
                     ]
                 )
@@ -128,22 +156,46 @@ def fetch_era5_data(patches_df, days_before=30):
                 .reduceRegion(
                     reducer=ee.Reducer.mean(),
                     geometry=point,
-                    scale=11132,  # ERA5-Land native resolution (~11km)
+                    scale=11132,
                     maxPixels=1e9,
                 )
                 .getInfo()
             )
 
-            if stats and "temperature_2m" in stats:
+            # --- PART B: GPM Precipitation ---
+            # GPM is 30-min resolution. Band 'precipitationCal' is mm/hr.
+            # Total mm = sum(rate * 0.5hr)
+            # Efficient way: Mean Rate (mm/hr) * Total Hours (24 * 30)
+
+            # Filter GPM
+            gpm_filtered = gpm_col.filterDate(start_date, end_date).filterBounds(point)
+
+            # Get Mean Precipitation Rate (mm/hr) over the 30 days
+            gpm_stats = (
+                gpm_filtered.select("precipitationCal")
+                .mean()
+                .reduceRegion(
+                    reducer=ee.Reducer.mean(),
+                    geometry=point,
+                    scale=11132,
+                    maxPixels=1e9,
+                )
+                .getInfo()
+            )
+
+            if era5_stats and gpm_stats and "temperature_2m" in era5_stats:
                 # Unit conversions
-                temp_c = stats["temperature_2m"] - 273.15  # Kelvin → Celsius
-                dew_c = stats["dewpoint_temperature_2m"] - 273.15
+                temp_c = era5_stats["temperature_2m"] - 273.15
+                dew_c = era5_stats["dewpoint_temperature_2m"] - 273.15
 
-                # ERA5 precip is in meters/hour
-                # Convert to total mm over 30 days
-                total_precip_mm = stats["total_precipitation"] * 24 * days_before * 1000
+                # Precipitation Calculation
+                # Mean Rate (mm/hr) * 24 hours * 30 days
+                mean_precip_rate = gpm_stats.get("precipitationCal", 0)  # mm/hr
+                if mean_precip_rate is None:
+                    mean_precip_rate = 0
+                total_precip_mm = mean_precip_rate * 24 * 30
 
-                # Calculate VPD (key fire weather variable!)
+                # Calculate VPD
                 vpd = calculate_vpd(temp_c, dew_c)
 
                 results.append(
@@ -154,24 +206,28 @@ def fetch_era5_data(patches_df, days_before=30):
                         "burn_label": row["burn_label"],
                         "mean_temp_30d": temp_c,
                         "total_precip_30d": total_precip_mm,
-                        "mean_wind_speed_30d": stats["wind_speed"],
-                        "mean_soil_moisture_30d": stats[
+                        "mean_wind_speed_30d": era5_stats["wind_speed"],
+                        "mean_soil_moisture_30d": era5_stats[
                             "volumetric_soil_water_layer_1"
                         ],
-                        "mean_vpd_30d": vpd,  # ← Primary fire driver
+                        "mean_vpd_30d": vpd,
                     }
                 )
             else:
+                print(f"  Warning on patch {patch_id}: Data missing.")
                 failed += 1
 
         except Exception as e:
             print(f"  Error on patch {patch_id}: {e}")
             failed += 1
+            if failed > 10 and len(results) == 0:
+                print("  ⚠ Too many errors, checking first error detail...")
+                raise e
             continue
 
-        # Progress indicator
-        if (index + 1) % 10 == 0:
-            print(f"  Processed {index + 1}/{len(patches_df)} patches...")
+        # Progress indicator (every 50 patches)
+        if (i + 1) % 50 == 0:
+            print(f"  Processed {i + 1}/{len(patches_df)} patches...")
 
     print(f"\n✓ Completed: {len(results)} successful, {failed} failed")
     return pd.DataFrame(results)
@@ -331,6 +387,12 @@ if __name__ == "__main__":
     print("=" * 70)
     print("PHASE 2: ERA5 Weather Analysis (GEE-based)")
     print("=" * 70)
+
+    # Debug: Check ERA5 accumulation logic
+    # try:
+    #    check_accumulation()
+    # except Exception as e:
+    #    print(f"Debug check failed: {e}")
 
     # Load Phase 1 metadata
     if not os.path.exists(METADATA_PATH):
