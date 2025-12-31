@@ -48,13 +48,6 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 | **Temperature** | 15.7°C | > 25-30°C | **MODERATE** ❌ |
 
 #### Correlation Analysis (511 Fire Patches)
-![Weather Correlations](results/phase2/correlation_heatmap.png)
-
-#### Variable Distributions
-![Weather Distributions](results/phase2/variable_distributions.png)
-
-#### VPD Distribution Analysis
-![VPD Analysis](results/phase2/vpd_distribution.png)
 
 **Scientific Implications:**
 1. **Alaska fires are mechanistically different** from temperate/Mediterranean wildfires
@@ -66,17 +59,19 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 
 <table>
 <tr>
-<td width="33%" align="center">
+<td width="50%" align="center">
 <b>Correlation Heatmap</b><br/>
 <img width="100%" alt="correlation_heatmap" src="https://github.com/user-attachments/assets/a5c78042-fd24-40c1-89a1-2be73f56797b" />
 </td>
-<td width="33%" align="center">
+<td width="50%" align="center">
 <b>Variable Distributions</b><br/>
 <img width="100%" alt="variable_distributions" src="https://github.com/user-attachments/assets/792aa6af-7fc7-4757-95fb-d4518440693b" />
 </td>
-<td width="33%" align="center">
+</tr>
+<tr>
+<td colspan="2" align="center">
 <b>VPD Distribution</b><br/>
-<img width="100%" alt="vpd_distribution" src="https://github.com/user-attachments/assets/b1822f7f-7037-41e1-a2b0-44c386c66382" />
+<img width="50%" alt="vpd_distribution" src="https://github.com/user-attachments/assets/b1822f7f-7037-41e1-a2b0-44c386c66382" />
 </td>
 </tr>
 </table>
