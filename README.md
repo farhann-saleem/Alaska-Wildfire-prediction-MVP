@@ -56,17 +56,17 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="results/phase2/correlation_heatmap.png" alt="Correlation Heatmap" width="100%">
+      <img src="https://github.com/user-attachments/assets/a14c7da1-ccb2-4e44-b497-eb9fa8cc176d" alt="Correlation Heatmap" width="100%">
       <br><b>Correlation Heatmap</b>
     </td>
     <td align="center" width="50%">
-      <img src="results/phase2/variable_distributions.png" alt="Variable Distributions" width="100%">
+      <img src="https://github.com/user-attachments/assets/0bac38a1-69e1-41e0-8ddd-38a2f10e3a08" alt="Variable Distributions" width="100%">
       <br><b>Variable Distributions</b>
     </td>
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <img src="results/phase2/vpd_distribution.png" alt="VPD Distribution" width="60%">
+      <img src="https://github.com/user-attachments/assets/b12f950e-e887-45f1-ae3d-37e74347f228" alt="VPD Distribution" width="60%">
       <br><b>VPD Distribution Analysis</b>
     </td>
   </tr>
