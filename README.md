@@ -62,6 +62,25 @@ Alaska faces increasing wildfire risks due to climate change. This research proj
 3. **Alternative drivers likely:** Lightning strikes, temporal lag effects, boreal fuel structure
 4. **Multi-modal approach validated:** Satellite imagery + weather context necessary
 
+#### Phase 2 Visualizations (511 Fire Patches Analyzed)
+
+<table>
+<tr>
+<td width="33%" align="center">
+<b>Correlation Heatmap</b><br/>
+<img width="100%" alt="correlation_heatmap" src="https://github.com/user-attachments/assets/a5c78042-fd24-40c1-89a1-2be73f56797b" />
+</td>
+<td width="33%" align="center">
+<b>Variable Distributions</b><br/>
+<img width="100%" alt="variable_distributions" src="https://github.com/user-attachments/assets/792aa6af-7fc7-4757-95fb-d4518440693b" />
+</td>
+<td width="33%" align="center">
+<b>VPD Distribution</b><br/>
+<img width="100%" alt="vpd_distribution" src="https://github.com/user-attachments/assets/b1822f7f-7037-41e1-a2b0-44c386c66382" />
+</td>
+</tr>
+</table>
+
 📊 **Full Analysis:** [docs/phase2-weather-analysis.md](docs/phase2-weather-analysis.md)
 
 ---
