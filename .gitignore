@@ -13,11 +13,19 @@ venv/
 *.log
 .DS_Store
 
-# Virtual Environment
+# Virtual Environments
 venv/
+venv_phase2/
 .ipynb_checkpoints/
 
 # Data and Logs
 data/
 outputs/
+results/
 *.log
+
+# Reference materials (keep local only)
+*.pdf
+*.txt
+!requirements.txt
+!LICENSE

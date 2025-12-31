@@ -1,292 +1,258 @@
-# 🗺️ Project Roadmap
+# 🗺️ Research Trajectory
 
 ## Vision
 
-Build an operational wildfire early warning system for Alaska using satellite imagery, machine learning, and real-time data integration—protecting communities, ecosystems, and infrastructure across the Circumpolar North.
+Develop a scientific understanding of wildfire drivers in Alaska through hypothesis-driven research, using satellite imagery and atmospheric data to identify the physical processes that precede ignition in boreal ecosystems.
 
 ---
 
-## Timeline Overview
+## Research Philosophy
 
-```mermaid
-gantt
-    title Alaska Wildfire Prediction Roadmap
-    dateFormat YYYY-MM-DD
-    section Phase 1
-    Baseline CNN (MVP)           :done, phase1, 2024-12-01, 2024-12-17
-    section Phase 2
-    Multi-modal Fusion (GSoC)    :phase2, 2026-05-27, 90d
-    section Phase 3  
-    Temporal Modeling (GSoC)     :phase3, after phase2, 60d
-    section Phase 4
-    Web Dashboard (GSoC)         :phase4, after phase3, 45d
-```
+This project follows an **evidence-driven approach**, not an architecture-driven one. Each phase tests a scientific hypothesis, and the results determine the next research direction. We don't commit to specific models or data sources until empirical evidence justifies them.
 
 ---
 
-##  Phase 1: Baseline CNN (COMPLETED)
+## Completed Research
 
-**Status:**  Completed (December 2024)  
-**Duration:** 2 weeks  
-**Goal:** Prove concept viability with foundational model
+### ✅ Phase 1: Satellite-Based Detection Hypothesis
 
-### Achievements
+**Duration:** December 1-17, 2024  
+**Research Question:** *Can deep learning detect wildfire patterns from satellite imagery despite extreme class imbalance?*
 
-- [x] Data pipeline (Google Earth Engine → GeoTIFF → Patches)
-- [x] Enhanced CNN with residual blocks
-- [x] Class imbalance mitigation (sample weighting, focal loss)
-- [x] 58.6% recall on wildfire detection
-- [x] Professional project structure and documentation
+#### Hypothesis
+Sentinel-2 optical imagery contains spatial signatures of pre-fire conditions that are detectable via convolutional neural networks.
 
-### Key Metrics
+#### Methodology
+- **Data:** 7,000+ patches from Sentinel-2 Level-2A (June 2021)
+- **Labels:** MTBS burn severity maps (Q3 2021)
+- **Model:** Enhanced CNN with residual blocks
+- **Challenge:** 98.3% class imbalance (1.7% burn patches)
 
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| Recall (Burn) | 58.6% | >50% |  Exceeded |
-| Accuracy | 89.8% | >80% |  Exceeded |
-| F1 Score | 16.5% | >10% |  Exceeded |
+#### Results
 
-### Deliverables
+| Metric | Value | Threshold | Status |
+|--------|-------|-----------|--------|
+| Recall (Burn) | 58.6% | > 50% | ✅ Exceeded |
+| Accuracy | 89.8% | > 80% | ✅ Exceeded |
+| F1 Score | 16.5% | > 10% | ✅ Exceeded |
 
--  Preprocessing scripts (`preprocess.py`)
--  Training notebook (`main.ipynb`)
--  Model architecture (`Enhanced CNN`)
--  Documentation suite (`docs/`)
--  GSoC proposal draft
+#### Scientific Findings
+1. **Spatial patterns exist:** CNN successfully learned fire signatures
+2. **Class imbalance solvable:** Sample weighting (10×) prevented model collapse
+3. **Threshold matters:** Adjusted decision boundary (0.5 → 0.3) for safety-critical systems
 
----
-
-## 🚀 Phase 2: Multi-Modal Fusion (GSoC 2026 Proposal)
-
-**Status:** 📋 Planned (GSoC May-August 2026)  
-**Duration:** 12 weeks (Large project: 350 hours)  
-**Goal:** Integrate multiple data sources for robust all-weather prediction
-
-### Objectives
-
-1. **Add Sentinel-1 SAR Data**
-   - Cloud-penetrating radar imagery
-   - VV/VH polarization bands
-   - Pre-processing: speckle filtering, terrain correction
-
-2. **Integrate Weather Variables**
-   - Temperature, humidity, wind speed
-   - ERA5 reanalysis data (hourly)
-   - Feature engineering: fire weather index
-
-3. **Implement Fusion Architecture**
-   - Early fusion: Concatenate features before CNN
-   - Late fusion: Separate encoders + merge layer
-   - Experiment with attention mechanisms
-
-### Technical Tasks
-
-- [ ] Week 1-2: Sentinel-1 GEE export and preprocessing
-- [ ] Week 3-4: Weather data integration (ERA5 API)
-- [ ] Week 5-7: Multi-input CNN architecture
-- [ ] Week 8-9: Fusion experiments (early vs late)
-- [ ] Week 10-11: Hyperparameter tuning and evaluation
-- [ ] Week 12: Documentation and code review
-
-### Expected Improvements
-
-| Metric | Phase 1 | Phase 2 Target | Improvement |
-|--------|---------|----------------|-------------|
-| Recall | 58.6% | **75%** | +28% |
-| Precision | 9.6% | **25%** | +161% |
-| F1 Score | 16.5% | **37.5%** | +127% |
-
-**Rationale:**
-- **SAR data** reduces cloud-related false negatives
-- **Weather variables** improve temporal precision
-- **Fusion** captures complementary signals
-
-### Deliverables
-
-- [ ] Sentinel-1 data loader module
-- [ ] Weather feature engineering pipeline
-- [ ] Multi-modal fusion architecture
-- [ ] Comparative study (optical vs. SAR vs. fusion)
-- [ ] Updated documentation
+**Conclusion:** ✅ Hypothesis SUPPORTED - Satellite-based detection is viable for Alaska
 
 ---
 
-## 🚀 Phase 3: Temporal Modeling (GSoC 2026 Proposal)
+### ✅ Phase 2: Weather-Driven Fire Hypothesis
 
-**Status:** 📋 Planned (GSoC August-October 2026)  
-**Duration:** 8 weeks (Medium project: 175 hours)  
-**Goal:** Capture temporal fire progression patterns using time-series data
+**Duration:** December 27-31, 2024  
+**Research Question:** *Do traditional fire weather variables (temperature, VPD, precipitation) correlate with Alaska wildfire ignition?*
 
-### Objectives
+#### Hypothesis
+Alaska wildfires occur under high VPD (> 1.0 kPa), low precipitation (< 50mm/month), and elevated temperatures (> 25°C), similar to temperate fire regimes.
 
-1. **Time-Series Data Preparation**
-   - Multi-temporal Sentinel-2 (6-month history)
-   - Sliding window approach (weekly snapshots)
-   - Sequence alignment and padding
+#### Methodology
+- **Data:** ERA5-Land Hourly via Google Earth Engine
+- **Fire Events:** 511 burn patches from Phase 1
+- **Temporal Window:** 30 days pre-fire (prevents data leakage)
+- **Variables:** 
+  - Temperature (2m)
+  - Total Precipitation
+  - Wind Speed
+  - Soil Moisture (0-7cm)
+  - **VPD (Vapor Pressure Deficit)** - Key fire driver
 
-2. **CNN-LSTM Hybrid Architecture**
-   - CNN encoder: Spatial feature extraction per timestep
-   - LSTM: Temporal pattern learning across sequence
-   - Sequence-to-one prediction (current fire risk)
+#### Results
 
-3. **Temporal Attention**
-   - Learn which historical timesteps are most important
-   - Attention weights visualization
+| Variable | Mean Value | Expected for High Risk | Assessment |
+|----------|------------|------------------------|------------|
+| **VPD** | **0.70 kPa** | > 1.0 kPa | **LOW** |
+| **Precipitation** | **739 mm** | < 50 mm/month | **WET** |
+| **Temperature** | **15.7°C** | > 25°C | **MODERATE** |
 
-### Technical Tasks
+#### Scientific Findings
 
-- [ ] Week 1-2: Time-series data collection (GEE batch exports)
-- [ ] Week 3-4: Sequence data loader implementation
-- [ ] Week 5-6: CNN-LSTM architecture development
-- [ ] Week 7: Attention mechanism integration
-- [ ] Week 8: Evaluation and comparison with Phase 2
+**🚨 SURPRISING RESULT: Hypothesis REJECTED**
 
-### Expected Improvements
+Alaska fires occurred in **LOW** traditional fire-risk weather conditions:
+- VPD below typical fire threshold (0.70 vs. 1.0 kPa)
+- Extremely high precipitation (739mm vs. 50-100mm normal)
+- Moderate temperatures (not hot)
 
-| Metric | Phase 2 | Phase 3 Target | Improvement |
-|--------|---------|----------------|-------------|
-| Recall | 75% | **82%** | +9% |
-| Lead Time | N/A | **2 weeks** | New capability |
+#### Implications
 
-**Rationale:**
-- **Temporal patterns:** Vegetation drying, heat accumulation
-- **Seasonal context:** Spring thaw, summer drought
-- **Early warning:** Predict fire risk before ignition
+1. **Alaska fires are mechanistically different** from temperate/Mediterranean wildfires
+2. **Weather alone is insufficient** for prediction in boreal ecosystems
+3. **Alternative drivers likely:**
+   - **Lightning strikes** (can ignite even in wet conditions)
+   - **Temporal lag effects** (fires ignite weeks after dry period)
+   - **Fuel structure** (mosses, lichens behave differently than grass/leaves)
+   - **Permafrost dynamics** (affects soil moisture differently)
 
-### Deliverables
+4. **Validates multi-modal approach:** Need satellite imagery to capture spatial fuel conditions + weather context
 
-- [ ] Time-series data pipeline
-- [ ] CNN-LSTM model implementation
-- [ ] Attention visualization tools
-- [ ] Temporal ablation study
-- [ ] Prediction dashboard prototype
+**Visualizations:**
+- Correlation heatmap: Variable relationships
+- Distribution analysis: Pre-fire weather patterns
+- VPD analysis: 511 fire events
+
+**Documentation:** [docs/phase2-weather-analysis.md](../docs/phase2-weather-analysis.md)
+
+**Conclusion:** ❌ Hypothesis REJECTED - Weather alone does NOT explain Alaska fires  
+**Pivot:** Multi-modal integration essential, not optional
 
 ---
 
-##  Phase 4: Web Dashboard & Deployment (GSoC 2026 Proposal)
+## Proposed Research (Contingent on GSoC 2026)
 
-**Status:**  Planned (GSoC October-November 2026)  
-**Duration:** 6 weeks (Small project: 90 hours)  
-**Goal:** Deploy operational early warning system for stakeholders
+### 🔬 Phase 3: Multi-Modal Fire Driver Analysis
 
-### Objectives
+**Status:** Proposed (contingent on GSoC acceptance)  
+**Research Question:** *Can multi-modal fusion (SAR + optical + weather + lightning) improve prediction beyond any single data source?*
 
-1. **Web Application**
-   - Interactive map (Leaflet.js / Mapbox)
-   - Real-time prediction overlay
-   - Historical fire perimeter visualization
+#### Rationale (Evidence-Based)
 
-2. **Inference API**
-   - FastAPI REST endpoints
-   - TensorFlow Serving for model deployment
-   - Batch prediction support
+Phase 2 findings demand a multi-modal approach:
+- **Weather:** Context, not primary signal (low correlation)
+- **Satellite (Phase 1):** Spatial patterns detected (58.6% recall)
+- **Missing:** All-weather imaging, temporal dynamics, lightning data
 
-3. **User Interface**
-   - Risk level indicators (Low / Medium / High)
-   - Downloadable prediction GeoTIFFs
-   - Export reports (PDF / CSV)
-
-### Technical Tasks
-
-- [ ] Week 1-2: FastAPI backend development
-- [ ] Week 3-4: React frontend with map integration
-- [ ] Week 5: TensorFlow Serving deployment (Docker)
-- [ ] Week 6: User testing and documentation
-
-### Architecture
+#### Proposed Architecture
 
 ```
-┌─────────────┐     HTTP      ┌──────────────┐
-│   React     │ ←----------→  │  FastAPI     │
-│  Frontend   │               │  Backend     │
-└─────────────┘               └──────────────┘
-                                     ↓
-                              ┌──────────────┐
-                              │  TF Serving  │
-                              │  (Model)     │
-                              └──────────────┘
-                                     ↓
-                              ┌──────────────┐
-                              │  PostgreSQL  │
-                              │  (Metadata)  │
-                              └──────────────┘
+┌─────────────────┐
+│ Sentinel-2 CNN  │ ← Phase 1 (Spatial features)
+│  (Optical)      │
+└────────┬────────┘
+         │
+         ▼
+    ┌─────────────────────┐
+    │ Multi-Modal Fusion  │
+    │  (Late Fusion)      │
+    └─────────────────────┘
+         ▲        ▲        ▲
+         │        │        │
+┌────────┴──┐ ┌──┴────┐ ┌─┴───────┐
+│ Sentinel-1│ │ ERA5  │ │ NOAA    │
+│    SAR    │ │Weather│ │Lightning│
+│(All-weather)│(Context)│ (Trigger)│
+└───────────┘ └───────┘ └─────────┘
+         ↓
+  Fire Risk Probability
 ```
 
-### Deliverables
+#### Hypotheses to Test
 
-- [ ] Web application (frontend + backend)
-- [ ] REST API documentation (OpenAPI)
-- [ ] Docker deployment configuration
-- [ ] User guide and tutorials
-- [ ] Demonstration video
+1. **Sentinel-1 SAR Hypothesis:**  
+   *SAR backscatter changes (VV/VH polarization) indicate vegetation moisture stress 7-14 days before ignition*
+   
+2. **Temporal Lag Hypothesis:**  
+   *60-day weather window shows stronger correlation than 30-day (fuel drying accumulates)*
+   
+3. **Lightning Trigger Hypothesis:**  
+   *Lightning density within 10km of patch predicts ignition better than temperature*
+
+#### Proposed Methodology
+
+**Weeks 1-4: Data Integration**
+- Sentinel-1 GEE export and preprocessing
+- NOAA Lightning Detection Network integration
+- Extend ERA5 temporal window to 60 days
+
+**Weeks 5-8: Model Development**
+- Multi-input CNN architecture
+- Late fusion layer (preserve modality-specific signals)
+- Ablation study (each data source individually)
+
+**Weeks 9-12: Analysis & Validation**
+- Statistical hypothesis testing
+- Temporal cross-validation (prevent data leakage)
+- Interpretability analysis (SHAP values per modality)
+
+#### Expected Outcomes
+
+| Metric | Phase 1 (Optical) | Phase 2 (+ Weather) | Phase 3 Target (Multi-Modal) |
+|--------|-------------------|---------------------|------------------------------|
+| Recall | 58.6% | N/A | **> 75%** |
+| Precision | 9.6% | N/A | **> 20%** |
+| Lead Time | 0 days | N/A | **7-14 days** |
+
+**Note:** Targets are provisional. Research is exploratory, not guaranteed.
 
 ---
 
 ## Long-Term Vision (Beyond GSoC)
 
-### Phase 5: Operational Deployment (2027)
+### Operational Deployment (2027+)
 
-- **Real-time ingestion:** Automated Sentinel-2/1 downloads
-- **Cloud infrastructure:** AWS/GCP deployment
-- **Alerting system:** Email/SMS notifications for high-risk areas
-- **Stakeholder integration:** UAA researchers, Alaska fire management agencies
+If Phase 3 succeeds:
+- Real-time ingestion pipeline (automated GEE downloads)
+- Cloud deployment (AWS/GCP)
+- Stakeholder integration (Alaska fire management agencies)
 
-### Phase 6: Research Extensions (2027-2028)
+### Research Extensions
 
 - **Fire severity prediction:** Multi-class output (low/medium/high)
-- **Emission estimation:** CO2 and PM2.5 from fire predictions
-- **Climate scenarios:** RCP 4.5 / 8.5 future projections
-- **Transfer learning:** Apply to other circumpolar regions (Canada, Russia)
+- **Emission modeling:** CO₂ and PM2.5 from predicted fires
+- **Climate scenarios:** RCP 4.5/8.5 projections for 2050/2100
+- **Transfer learning:** Apply to Canada, Siberia (circumpolar regions)
 
 ---
 
 ## Success Criteria
 
-### Technical Metrics
+### Phase 3 Validation
 
-| Phase | Key Metric | Target | Measurement |
-|-------|------------|--------|-------------|
-| Phase 1 | Recall | >50% | Test set evaluation |
-| Phase 2 | F1 Score | >35% | Multi-modal test set |
-| Phase 3 | Lead Time | 2 weeks | Temporal validation |
-| Phase 4 | Latency | <5 sec | API response time |
+To consider Phase 3 successful, we must:
+1. **Beat Phase 1 baseline:** Recall > 58.6% (multi-modal must outperform optical-only)
+2. **Statistical significance:** Each modality contributes significantly (ablation study)
+3. **Interpretability:** Understand *why* model makes predictions (not black box)
+4. **Temporal robustness:** Works on held-out years (2019, 2020)
 
-### Impact Metrics
+### Scientific Impact
 
-- **Coverage:** Predict across 100,000+ km² of Alaska
-- **Adoption:** 5+ research groups using the system
-- **Publications:** 2+ peer-reviewed papers
-- **Community:** 20+ GitHub contributors
+- **Publications:** 1-2 peer-reviewed papers (focus on Alaska-specific fire dynamics)
+- **Community:** Open-source dataset + code for circumpolar fire research
+- **Collaboration:** Work with Alaska fire ecologists to validate findings
 
 ---
 
-## GSoC 2026 Contribution Opportunities
+## Research Principles
 
-### For Applicants
+1. **Hypothesis-driven, not architecture-driven**  
+   We test scientific questions, not build predetermined models
 
-**Strong Proposals Will:**
-- Choose 1-2 roadmap phases to focus on
-- Demonstrate understanding of current codebase
-- Propose specific technical approaches
-- Include realistic timeline and milestones
+2. **Evidence-based pivots**  
+   Phase 2 rejected weather-only hypothesis → Phase 3 adapts accordingly
 
-**Recommended Reading:**
-- [Alaska GSoC Contributor Guide](https://github.com/uaanchorage/GSoC/blob/main/CONTRIBUTOR-GUIDE.md)
-- [Wildfire Prediction Literature Review](docs/references.md)
-- Current project documentation (`docs/`)
+3. **Interpretability over performance**  
+   Understanding fire drivers > achieving highest accuracy
+
+4. **Reproducibility**  
+   All code, data sources, and methods openly documented
 
 ---
 
-## Updates & Revisions
+## Updates & Timeline
 
 | Date | Phase | Update |
 |------|-------|--------|
-| 2024-12-17 | Phase 1 |  MVP completed, 58.6% recall achieved |
-| 2025-01-15 | Phase 2 | GSoC proposal submitted |
-| 2026-05-27 | Phase 2 |  GSoC begins (planned) |
+| 2024-12-17 | Phase 1 | ✅ Satellite detection proven viable (58.6% recall) |
+| 2024-12-31 | Phase 2 | ✅ Weather hypothesis rejected - Alaska fires differ from temperate regimes |
+| 2025-01-15 | Phase 3 | 📋 GSoC proposal submitted (multi-modal approach) |
+| 2026-05-27 | Phase 3 | 🚀 GSoC begins (if accepted) |
 
 ---
 
-**Last Updated:** December 17, 2024  
-**Maintainer:** Alaska Wildfire Prediction Team  
-**GSoC Organization:** [University of Alaska Anchorage](https://github.com/uaanchorage/GSoC)
+**Last Updated:** December 31, 2024  
+**Project Lead:** Farhan Saleem  
+**GSoC Organization:** [University of Alaska Anchorage](https://github.com/uaanchorage/GSoC)  
+**Repository:** [Alaska-Wildfire-prediction-MVP](https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP)
+
+---
+
+<p align="center">
+  <i>Research is not about confirming your hypothesis - it's about discovering the truth.</i>
+</p>

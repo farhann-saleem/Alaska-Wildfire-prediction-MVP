@@ -12,3 +12,10 @@ rasterio
 # Deep Learning
 tensorflow
 jupyter
+
+#phase 2
+cdsapi
+xarray
+netCDF4
+scipy>=1.7.0
+earthengine-api 
