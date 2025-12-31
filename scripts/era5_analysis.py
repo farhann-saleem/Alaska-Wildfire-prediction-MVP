@@ -105,7 +105,7 @@ def fetch_era5_data(patches_df, days_before=30):
 
     CRITICAL: Prevents data leakage by only using pre-fire weather.
     """
-    print(f"\nFetching Weather Data (ERA5-Land + GPM IMERG)...")
+    print("\nFetching Weather Data (ERA5-Land + GPM IMERG)...")
     print(f"Time window: {days_before} days before each fire ignition")
 
     # 1. ERA5 for State Variables
@@ -268,7 +268,7 @@ def generate_visualizations(weather_df):
     )
     plt.tight_layout()
     plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.png", dpi=300, bbox_inches="tight")
-    print(f"  ✓ Saved: correlation_heatmap.png")
+    print("Saved: correlation_heatmap.png")
 
     # 2. Variable Distributions
     fig, axes = plt.subplots(2, 3, figsize=(15, 10))
@@ -304,7 +304,7 @@ def generate_visualizations(weather_df):
     plt.savefig(
         f"{OUTPUT_DIR}/variable_distributions.png", dpi=300, bbox_inches="tight"
     )
-    print(f"  ✓ Saved: variable_distributions.png")
+    print("Saved: variable_distributions.png")
 
     # 3. VPD vs Fire Occurrence (if we had no-fire patches for comparison)
     # For now, just show VPD distribution for fire patches
@@ -330,7 +330,7 @@ def generate_visualizations(weather_df):
     ax.grid(alpha=0.3)
     plt.tight_layout()
     plt.savefig(f"{OUTPUT_DIR}/vpd_distribution.png", dpi=300, bbox_inches="tight")
-    print(f"  ✓ Saved: vpd_distribution.png")
+    print("Saved: vpd_distribution.png")
 
 
 def print_statistical_summary(weather_df):
@@ -400,12 +400,12 @@ if __name__ == "__main__":
         print("  Make sure you've run Phase 1 preprocessing first.")
         exit(1)
 
-    print(f"\n[1/5] Loading fire patch metadata...")
+    print("\n[1/5] Loading fire patch metadata...")
     meta_df = pd.read_csv(METADATA_PATH)
-    print(f"  Loaded {len(meta_df)} total patches")
+    print(f"Loaded {len(meta_df)} total patches")
 
     # FIX: Map Phase 1 column names to what script expects
-    print(f"\n[2/5] Preparing data...")
+    print("\n[2/5] Preparing data...")
     if "center_x" in meta_df.columns:
         meta_df.rename(
             columns={
@@ -426,7 +426,7 @@ if __name__ == "__main__":
         exit(1)
 
     # Fetch ERA5 weather data via GEE
-    print(f"\n[3/5] Fetching ERA5 weather data via Google Earth Engine...")
+    print("\n[3/5] Fetching ERA5 weather data via Google Earth Engine...")
     print("  (This may take 2-5 minutes depending on patch count)")
     weather_df = fetch_era5_data(burn_patches)
 
@@ -435,12 +435,12 @@ if __name__ == "__main__":
         exit(1)
 
     # Save results
-    print(f"\n[4/5] Saving results...")
+    print("\n[4/5] Saving results...")
     weather_df.to_csv(f"{OUTPUT_DIR}/era5_weather_correlations.csv", index=False)
-    print(f"  ✓ Saved: {OUTPUT_DIR}/era5_weather_correlations.csv")
+    print(f" Saved: {OUTPUT_DIR}/era5_weather_correlations.csv")
 
     # Generate visualizations
-    print(f"\n[5/5] Generating visualizations...")
+    print("\n[5/5] Generating visualizations...")
     generate_visualizations(weather_df)
 
     # Print statistical summary
