@@ -12,121 +12,97 @@
 
 ## 📖 Overview
 
-Alaska faces increasing wildfire risks due to climate change. This research project takes a hypothesis-driven approach to understanding wildfire drivers, starting with satellite-based detection and expanding to weather correlation analysis. Rather than immediately building a "hybrid model," we test scientific hypotheses about what factors drive Alaska wildfires.
-
-### 🎯 Research Objectives
-
-- ✅ **Phase 1 (Complete):** Prove satellite-based detection is viable
-- ✅ **Phase 2 (Complete):** Test weather-driven fire hypothesis  
-- 🔬 **Phase 3 (Proposed):** Multi-modal integration based on empirical findings
+Alaska faces increasing wildfire risks due to climate change. This research project investigates wildfire drivers through hypothesis-driven analysis, testing scientific assumptions about what causes fires in boreal ecosystems. Under mentorship from [Dr. Yali Wang](https://github.com/YaliWang2019), the project shifted from architecture-driven development to evidence-based research, prioritizing scientific understanding over model performance.
 
 ---
 
 ## 🏆 Research Results
 
-### Phase 1: Baseline Detection Model
+### ✅ Phase 1: Satellite-Based Detection (Complete)
+
+**Research Question:** *Can deep learning detect wildfire patterns from satellite imagery despite extreme class imbalance?*
 
 ![Training Results](assets/training_results.png)
 
-**Achievements:**
-- **Accuracy:** 89.8% overall classification
+**Key Achievements:**
 - **Recall:** 58.6% for wildfire detection (burn class)
+- **Accuracy:** 89.8% overall classification
 - **Model:** Enhanced CNN with residual blocks
 - **Dataset:** 7,000+ patches from Alaska 2021 fire season
 - **Challenge Solved:** Extreme class imbalance (1.7% positive samples)
 
-> **Significance:** Demonstrated that deep learning can detect wildfire patterns in satellite imagery despite severe class imbalance, proving viability for Alaska deployment.
+> **Finding:** Spatial patterns in Sentinel-2 optical imagery contain detectable fire signatures. Viable for Alaska deployment.
 
 ---
 
-### Phase 2: Weather Hypothesis Testing
+### ✅ Phase 2: Weather Hypothesis Testing (Complete)
 
-**Research Question:** *Do traditional fire weather variables (temperature, precipitation, VPD) correlate with Alaska wildfire ignition?*
-
-**Methodology:**
-- **Data:** ERA5-Land hourly weather via Google Earth Engine
-- **Fire Events:** 511 burn patches from Phase 1
-- **Temporal Window:** 30 days pre-fire (prevents data leakage)
-- **Variables:** Temperature, Precipitation, Wind, Soil Moisture, VPD
+**Research Question:** *Do traditional fire weather variables (temperature, VPD, precipitation) correlate with Alaska wildfire ignition?*
 
 **Key Finding: Alaska Fires Occur in LOW Traditional Fire-Risk Weather**
 
-| Variable | Mean Value | Traditional Risk Threshold | Assessment |
-|----------|------------|---------------------------|------------|
-| **VPD** | 0.70 kPa | \> 1.0 kPa (high risk) | **LOW** |
-| **Precipitation** | 739 mm/month | 50-100 mm (normal) | **WET** |
-| **Temperature** | 15.7°C | \> 30°C (high risk) | **MODERATE** |
+| Variable | Observed (Alaska Fires) | High Fire Risk Threshold | Assessment |
+|----------|------------------------|-------------------------|------------|
+| **VPD** | 0.70 kPa | > 1.0 kPa | **LOW** ❌ |
+| **Precipitation** | 739 mm/month | < 50 mm/month | **WET** ❌ |
+| **Temperature** | 15.7°C | > 25-30°C | **MODERATE** ❌ |
+
+#### Correlation Analysis (511 Fire Patches)
+![Weather Correlations](results/phase2/correlation_heatmap.png)
+
+#### Variable Distributions
+![Weather Distributions](results/phase2/variable_distributions.png)
+
+#### VPD Distribution Analysis
+![VPD Analysis](results/phase2/vpd_distribution.png)
 
 **Scientific Implications:**
-1. **Alaska fires are different** from temperate/Mediterranean wildfires
-2. **Weather alone is insufficient** for prediction  
-3. **Validates multi-modal approach** - need satellite imagery + weather combined
-4. **Suggests lightning/lag effects** - ignition may not correlate with immediate weather
+1. **Alaska fires are mechanistically different** from temperate/Mediterranean wildfires
+2. **Weather alone is insufficient** for prediction in boreal ecosystems
+3. **Alternative drivers likely:** Lightning strikes, temporal lag effects, boreal fuel structure
+4. **Multi-modal approach validated:** Satellite imagery + weather context necessary
 
-**Visualizations:**
-- Correlation heatmap of weather variables
-- Pre-fire weather distributions  
-- VPD analysis for 511 fire events
+📊 **Full Analysis:** [docs/phase2-weather-analysis.md](docs/phase2-weather-analysis.md)
 
-📊 **Full Analysis:** See [docs/phase2-weather-analysis.md](docs/phase2-weather-analysis.md)
+---
+
+## 🔬 Methodology
+
+### Phase 1: CNN Baseline
+- **Data:** Sentinel-2 Level-2A optical imagery (June 2021)
+- **Labels:** MTBS burn severity maps (Q3 2021)
+- **Approach:** Address class imbalance via sample weighting (10× boost)
+- **Innovation:** Tuned decision threshold (0.5 → 0.3) for safety-critical systems
+
+### Phase 2: Weather Analysis
+- **Data:** ERA5-Land hourly weather via Google Earth Engine
+- **Temporal Window:** 30 days pre-fire (prevents data leakage)
+- **Variables:** Temperature, Precipitation, Wind, Soil Moisture, **VPD**
+- **Analysis:** 511 burn patches with dynamic time windows
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Python 3.10+
-- 8GB+ RAM
-- Optional: NVIDIA GPU with CUDA
-
-### Installation
+**Full installation and usage guide:** [SETUP.md](SETUP.md)
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP.git
 cd wildfire-prediction-mvp
 
-# Create virtual environment
+# Install dependencies
 python -m venv venv
 source venv/bin/activate  # Windows: .\venv\Scripts\Activate.ps1
-
-# Install dependencies
 pip install -r requirements.txt
-```
 
-### Usage
-
-#### Phase 1: Train Detection Model
-
-```bash
-# Extract patches from satellite imagery
+# Phase 1: Train detection model
 python scripts/preprocess.py
-
-# Train CNN model
 python scripts/train_model.py
-# OR use interactive notebook:
-jupyter notebook scripts/main.ipynb
-```
 
-#### Phase 2: Weather Analysis
-
-```bash
-# Activate Phase 2 environment (includes GEE dependencies)
-pip install earthengine-api pandas seaborn matplotlib
-
-# Authenticate Google Earth Engine
-python -c "import ee; ee.Authenticate()"
-
-# Run weather correlation analysis
+# Phase 2: Weather analysis (requires GEE authentication)
 python scripts/era5_analysis.py
 ```
-
-**Outputs:**
-- `results/phase2/era5_weather_correlations.csv`
-- `results/phase2/correlation_heatmap.png`
-- `results/phase2/variable_distributions.png`
-- `results/phase2/vpd_distribution.png`
 
 ---
 
@@ -134,172 +110,94 @@ python scripts/era5_analysis.py
 
 ```
 wildfire-prediction-mvp/
-├── configs/
-│   └── default_config.yaml        # Configuration parameters
-├── data/
-│   ├── raw/                       # Raw GeoTIFF imagery
-│   ├── patches/                   # Extracted patches (generated)
-│   └── patch_metadata.csv         # Patch metadata (generated)
-├── docs/                          # Research documentation
-│   ├── debugging-journey.md       # Phase 1 technical challenges
-│   ├── phase2-weather-analysis.md # Phase 2 empirical findings
-│   ├── architecture.md            # System design
-│   └── data-pipeline.md           # Data processing workflow
-├── results/
-│   └── phase2/                    # Phase 2 outputs
+├── docs/                       # Research documentation
+│   ├── phase2-weather-analysis.md    # Phase 2 empirical findings
+│   ├── debugging-journey.md          # Phase 1 technical challenges
+│   └── ...
+├── results/phase2/             # Phase 2 outputs
 ├── scripts/
-│   ├── preprocess.py              # Phase 1 preprocessing
-│   ├── train_model.py             # Phase 1 training
-│   ├── era5_analysis.py           # Phase 2 weather analysis
-│   └── main.ipynb                 # Interactive training notebook
-├── src/
-│   └── data_pipeline/             # Patch extraction utilities
-└── assets/                        # Visualization outputs
+│   ├── preprocess.py           # Phase 1 preprocessing
+│   ├── train_model.py          # Phase 1 training
+│   └── era5_analysis.py        # Phase 2 weather analysis
+├── src/data_pipeline/          # Utilities
+├── README.md                   # This file
+├── SETUP.md                    # Installation & usage guide
+├── ROADMAP.md                  # Research trajectory
+└── requirements.txt            # Python dependencies
 ```
 
 ---
 
 ## 🔧 Engineering Challenges (Phase 1)
 
-### Challenge 1: Softmax Collapse
+### Softmax Collapse
+**Problem:** Model predicted "No Burn" for everything (98.3% accuracy, 0% recall)  
+**Solution:** Sample weighting (10×), one-hot encoding, categorical cross-entropy
 
-**Problem:** Model achieved 98.3% accuracy by predicting "No Burn" for everything.
+### Gradient Instability
+**Problem:** Aggressive class weights caused training oscillation  
+**Solution:** Reduced scaling (58× → 10×), lower learning rate (0.01 → 0.0001)
 
-**Root Cause:** With 1.7% positive samples, the loss signal from rare fires was too weak.
-
-**Solution:**
-- Sample weighting (10× boost for minority class)
-- One-hot encoding for numerical stability
-- Categorical cross-entropy loss
-
-**Result:** Model learned to detect fires (58.6% recall)
+**Full Technical Details:** [docs/debugging-journey.md](docs/debugging-journey.md)
 
 ---
 
-### Challenge 2: Gradient Instability
+## 🗺️ Future Research Directions
 
-**Problem:** Aggressive class weights (58×) caused training instability.
+Based on Phase 2 findings, proposed Phase 3 focuses on:
 
-**Solution:**
-- Reduced weight scaling (58× → 10×)
-- Lower learning rate (0.01 → 0.0001)
-- Pixel value clipping
-- Early stopping
+**Multi-Modal Integration:**
+- **Sentinel-1 SAR:** All-weather vegetation stress detection
+- **Lightning Data:** NOAA strike locations (direct ignition source)
+- **Temporal Modeling:** 60-day fuel accumulation analysis (CNN-LSTM)
 
----
+**Architecture:** Late fusion (preserve modality-specific signals)
 
-### Challenge 3: Precision-Recall Trade-off
+**Contingent on:** GSoC 2026 acceptance
 
-**Problem:** Default 0.5 threshold wasn't optimal for early warning systems.
-
-**Solution:**
-- Tuned threshold to 0.3 (prioritize catching fires over minimizing false alarms)
-- Justification: For safety-critical systems, false positives are acceptable; false negatives are dangerous
-
-**Result:**
-```
-Threshold 0.5: Recall 45%, Precision 15%
-Threshold 0.3: Recall 58.6%, Precision 9.6%  ✓ Chosen
-```
-
----
-
-## 🔬 Future Research Directions
-
-Based on Phase 2 findings, future work should focus on:
-
-### Proposed Phase 3: Multi-Modal Integration
-
-**Rationale:** Weather analysis revealed weak direct correlation → need complementary signals
-
-**Recommended Approach:**
-1. **Sentinel-1 SAR Integration**
-   - All-weather imaging (penetrates clouds)
-   - Detects vegetation stress and soil moisture changes
-   - May capture drying patterns weather data misses
-
-2. **Temporal Lag Analysis**
-   - Test 60-day vs. 30-day pre-fire windows
-   - Fire may ignite weeks after dry period ends
-   - CNN-LSTM for sequential pattern learning
-
-3. **Lightning Strike Data**
-   - Alaska fires are predominantly lightning-caused
-   - Integrate NOAA Lightning Detection Network
-   - Could explain why wet-weather fires occur
-
-**Note:** This is a research project. Phase 3 direction is contingent on GSoC acceptance and will adapt based on empirical evidence, not pre-committed architectures.
+📍 **Full Trajectory:** [ROADMAP.md](ROADMAP.md)
 
 ---
 
 ## 📚 Documentation
 
-Detailed research documentation:
-
-- **[Debugging Journey](docs/debugging-journey.md)** - Phase 1 technical challenges and solutions
-- **[Phase 2 Weather Analysis](docs/phase2-weather-analysis.md)** - Empirical findings on weather-fire correlation
-- **[Architecture Overview](docs/architecture.md)** - System design
-- **[Data Pipeline](docs/data-pipeline.md)** - Preprocessing methodology
+- **[SETUP.md](SETUP.md)** - Installation and usage
+- **[Phase 2 Analysis](docs/phase2-weather-analysis.md)** - Weather hypothesis testing
+- **[Debugging Journey](docs/debugging-journey.md)** - Phase 1 technical challenges
+- **[ROADMAP.md](ROADMAP.md)** - Research trajectory
 
 ---
 
-## 🤝 Contributing
+## 🙏 Acknowledgments
 
-This research project welcomes scientific collaboration and feedback. If you're interested in:
-- Wildfire prediction research in circumpolar regions
-- Multi-modal satellite imagery analysis
-- Fire weather modeling in boreal forests
-
-Feel free to:
-1. Join discussions in [GitHub Discussions](https://github.com/uaanchorage/GSoC/discussions)
-2. Submit issues for bugs or questions
-3. Propose research collaborations
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
----
-
-## 📖 Citations
-
-If you use this work, please cite:
-
-```bibtex
-@misc{saleem2024alaska,
-  author = {Saleem, Farhan},
-  title = {Alaska Wildfire Prediction - Research Project},
-  year = {2024},
-  publisher = {GitHub},
-  url = {https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP}
-}
-```
+- **[Dr. Yali Wang](https://github.com/YaliWang2019)** - Research mentorship and guidance toward hypothesis-driven approach
+- **[University of Alaska Anchorage](https://www.uaa.alaska.edu/)** - Project support
+- **[Google Summer of Code](https://summerofcode.withgoogle.com/)** - Program framework
+- **[Sentinel-2 Mission](https://sentinel.esa.int/)** - Satellite imagery (ESA)
+- **[MTBS Project](https://www.mtbs.gov/)** - Burn severity data (USGS/USFS)
+- **[Copernicus ERA5](https://www.ecmwf.int/)** - Weather data (ECMWF)
 
 **Related Work:**
 - Wang, Y., et al. (2023). "Toward Energy-Efficient Deep Neural Networks for Forest Fire Detection in an Image." *The Geographical Bulletin*, 64(2), Article 13.
 
 ---
 
-## 📜 License
+## 🤝 Contributing
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This research project welcomes scientific collaboration. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 🙏 Acknowledgments
+## 📜 License
 
-- **[University of Alaska Anchorage](https://www.uaa.alaska.edu/)** - Research mentorship
-- **[Dr. Yali Wang](https://github.com/YaliWang2019)** - Project guidance and hypothesis-driven approach feedback
-- **[Google Summer of Code](https://summerofcode.withgoogle.com/)** - Program framework
-- **[Alaska GSoC Organization](https://github.com/uaanchorage/GSoC)** - Project coordination
-- **[Sentinel-2 Mission](https://sentinel.esa.int/)** - Satellite imagery (ESA)
-- **[MTBS Project](https://www.mtbs.gov/)** - Burn severity data (USGS/USFS)
-- **[Copernicus ERA5](https://www.ecmwf.int/)** - Weather reanalysis data (ECMWF)
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
 ## 📧 Contact
 
 **Developer:** Farhan Saleem  
-**Repository:** [https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP](https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP)  
+**Repository:** [Alaska-Wildfire-prediction-MVP](https://github.com/farhann-saleem/Alaska-Wildfire-prediction-MVP)  
 **GSoC Discussion:** [Alaska GSoC](https://github.com/uaanchorage/GSoC/discussions)
 
 ---
